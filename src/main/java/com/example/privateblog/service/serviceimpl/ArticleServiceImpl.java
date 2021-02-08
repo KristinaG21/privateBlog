@@ -49,7 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article foundById = articleRepository.findById(id).orElseThrow(()-> new ArticleNotFoundException("Article Not Found"));
         foundById.setHeadline(articleDTO.getHeadline());
         foundById.setAuthor(articleDTO.getAuthor());
-        foundById.setBody(articleDTO.getBody());
+        foundById.setDescription(articleDTO.getDescription());
         Article updatedArticle = articleRepository.save(foundById);
         return articleMapper.toDto(updatedArticle);
     }

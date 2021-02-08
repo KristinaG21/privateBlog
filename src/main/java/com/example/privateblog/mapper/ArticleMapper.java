@@ -11,18 +11,17 @@ public class ArticleMapper {
     public Article toEntity(ArticleDTO articleDTO) {
         Article article = new Article();
         article.setHeadline(articleDTO.getHeadline());
-        article.setBody(articleDTO.getBody());
+        article.setDescription(articleDTO.getDescription());
         article.setAuthor(articleDTO.getAuthor());
-        article.setLocalDate(articleDTO.getLocalDate());
         return article;
     }
 
     public ArticleDTO toDto(Article article) {
         ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(article.getId());
         articleDTO.setHeadline(article.getHeadline());
-        articleDTO.setBody(article.getBody());
+        articleDTO.setDescription(article.getDescription());
         articleDTO.setAuthor(article.getAuthor());
-        articleDTO.setLocalDate(article.getLocalDate());
         return articleDTO;
     }
 }

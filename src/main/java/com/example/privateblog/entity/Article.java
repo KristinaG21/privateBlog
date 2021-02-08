@@ -3,13 +3,14 @@ package com.example.privateblog.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name="ARTICLES")
+@Table(name="ARTICLES" )
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article {
@@ -22,13 +23,11 @@ public class Article {
     private String headline;
 
 
-    @Column(name="body")
-    private String body;
+    @Column(name="description")
+    private String description;
 
 
     @Column(name="author")
     private String author;
 
-    @Column(name="date_time")
-    private String LocalDate;
 }
