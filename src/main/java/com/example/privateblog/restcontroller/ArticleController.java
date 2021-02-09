@@ -15,12 +15,14 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    private static final String ARTICLES = "articles";
+    private static final String REDIRECT_ARTICLE_ID = "redirect:/articles";
 
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("newArticle",new ArticleDTO());
-        model.addAttribute("articles",articleService.findAll());
-        return "articles";
+        model.addAttribute(ARTICLES,articleService.findAll());
+        return ARTICLES;
     }
 
 
@@ -36,22 +38,22 @@ public class ArticleController {
     public String saveArticle(@ModelAttribute ArticleDTO articleDTO,Model model) {
         ArticleDTO newArticle = articleService.save(articleDTO);
         model.addAttribute("newArticle", newArticle);
-        return "redirect:/articles";
+        return REDIRECT_ARTICLE_ID;
     }
 
 
     @PostMapping("/{id}/update")
     public String updateById(@PathVariable Long id, @ModelAttribute ArticleDTO articleDTO, Model model) {
         ArticleDTO updateArticle = articleService.updateById(id,articleDTO);
-        model.addAttribute("articles", updateArticle);
-        return "redirect:/articles";
+        model.addAttribute(ARTICLES, updateArticle);
+        return REDIRECT_ARTICLE_ID;
     }
 
 
     @GetMapping("/{id}/delete")
     public String deleteById(@PathVariable Long id) {
         articleService.deleteById(id);
-        return "redirect:/articles";
+        return REDIRECT_ARTICLE_ID;
     }
 
 }

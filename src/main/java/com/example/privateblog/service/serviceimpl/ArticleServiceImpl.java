@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteById(Long id) throws ArticleNotFoundException {
+    public void deleteById(Long id) {
         Optional<Article> articleById = articleRepository.findById(id);
         if (articleById.isPresent()) {
             articleRepository.deleteById(id);

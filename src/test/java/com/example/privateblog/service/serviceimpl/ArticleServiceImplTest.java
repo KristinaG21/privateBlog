@@ -25,16 +25,16 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ArticleServiceImplTest {
 
-  @InjectMocks
-  private ArticleServiceImpl articleService = new ArticleServiceImpl();
+    @InjectMocks
+    private ArticleServiceImpl articleService = new ArticleServiceImpl();
 
-  @Mock
+    @Mock
     private ArticleRepository articleRepository;
 
-  @Mock
-     private  ArticleMapper articleMapper;
-     private ArticleDTO articleDTO= new ArticleDTO();
-      private Article article = new Article();
+    @Mock
+    private ArticleMapper articleMapper;
+    private ArticleDTO articleDTO = new ArticleDTO();
+    private Article article = new Article();
 
 
     @Before
@@ -83,6 +83,7 @@ public class ArticleServiceImplTest {
 
 
     }
+
     @Test
     public void saveArticle() {
         when(articleRepository.save(Mockito.any(Article.class))).thenReturn(article);
@@ -92,6 +93,7 @@ public class ArticleServiceImplTest {
         Mockito.verifyNoMoreInteractions(articleRepository);
 
     }
+
     @Test
     public void updateArticle() {
         when(articleRepository.findById(2l)).thenReturn(Optional.of(article));
@@ -100,7 +102,7 @@ public class ArticleServiceImplTest {
         articleDTO.setHeadline("test_headline");
         articleDTO.setDescription("test");
         articleDTO.setAuthor("test_name");
-        ArticleDTO updatedArticleDto = articleService.updateById(2l,articleDTO);
+        ArticleDTO updatedArticleDto = articleService.updateById(2l, articleDTO);
         assertNotNull(updatedArticleDto);
         assertEquals(article.getId(), updatedArticleDto.getId());
         assertEquals(article.getHeadline(), updatedArticleDto.getHeadline());
@@ -121,14 +123,21 @@ public class ArticleServiceImplTest {
             assertEquals(exceptionMessage, e.getMessage());
         }
     }
+
     @Test
-    public void deteleArticle() {
-        Article article = new Article();
-        article.setId(2l);
-        doNothing().when(articleRepository).deleteById(2l);
-        articleRepository.deleteById(2l);
+    public void deleteById(){
+        when(articleRepository.findById(2l)).thenReturn(Optional.of(article));
+        articleService.deleteById(2l);
         verify(articleRepository, times(1)).deleteById(2l);
 
     }
-
+    @Test(expected = ArticleNotFoundException.class)
+    public void shouldThrowException_deleteArticle() {
+        when(articleRepository.findById(2l)).thenThrow(new ArticleNotFoundException("Article not Found"));
+        articleService.deleteById(2l);
+    }
 }
+
+
+
+
