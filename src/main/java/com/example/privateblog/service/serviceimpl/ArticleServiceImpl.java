@@ -25,28 +25,29 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDTO> findAll() {
-     return articleRepository.findAll().stream()
+        return articleRepository.findAll().stream()
                 .map(article -> articleMapper.toDto(article))
                 .collect(Collectors.toList());
 
     }
+
     @Override
     public ArticleDTO findById(Long id) {
-       Article byId = articleRepository.findById(id).orElseThrow(()-> new ArticleNotFoundException("Article Not Found"));
-       return articleMapper.toDto(byId);
+        Article byId = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
+        return articleMapper.toDto(byId);
     }
 
     @Override
     public ArticleDTO save(ArticleDTO articleDTO) {
-     Article article = articleMapper.toEntity(articleDTO);
-     Article saveArticle = articleRepository.save(article);
-     return articleMapper.toDto(saveArticle);
+        Article article = articleMapper.toEntity(articleDTO);
+        Article saveArticle = articleRepository.save(article);
+        return articleMapper.toDto(saveArticle);
 
     }
-    
+
     @Override
     public ArticleDTO updateById(Long id, ArticleDTO articleDTO) {
-        Article foundById = articleRepository.findById(id).orElseThrow(()-> new ArticleNotFoundException("Article Not Found"));
+        Article foundById = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
         foundById.setHeadline(articleDTO.getHeadline());
         foundById.setAuthor(articleDTO.getAuthor());
         foundById.setDescription(articleDTO.getDescription());
@@ -55,11 +56,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteById(Long id)throws ArticleNotFoundException{
+    public void deleteById(Long id) throws ArticleNotFoundException {
         Optional<Article> articleById = articleRepository.findById(id);
-        if(articleById.isPresent()){
+        if (articleById.isPresent()) {
             articleRepository.deleteById(id);
-        }else {
+        } else {
             throw new ArticleNotFoundException("Article not Found");
         }
 
