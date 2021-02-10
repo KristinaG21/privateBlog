@@ -9,13 +9,17 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.blocker</groupId>
-	<artifactId>movie-rating-system</artifactId>
+	<artifactId>private-blog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>movie-rating-system</name>
-	<description>Movie rating system</description>
+	<name>private-blog</name>
+	<description>Private Blog</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.host.url>http://xxxxx:9000</sonar.host.url>
+		<sonar.login>355b8da85c15330febe0fbd39e82d175ccbc8785</sonar.login>
+		<sonar.language>java</sonar.language>
+		<sonar.scm.provider>git</sonar.scm.provider>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -67,6 +71,29 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-test-source</goal>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/it/java</source>
+							</sources>
+							<resources>
+								<resource>
+									<directory>src/it/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.5</version>
@@ -74,18 +101,15 @@
 					<execution>
 						<goals>
 							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
+							<goal>prepare-agent-integration</goal>
 							<goal>report</goal>
+							<goal>report-integration</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
