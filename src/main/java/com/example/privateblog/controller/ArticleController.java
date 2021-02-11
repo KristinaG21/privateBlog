@@ -1,6 +1,7 @@
 package com.example.privateblog.controller;
 
 import com.example.privateblog.dto.ArticleDTO;
+import com.example.privateblog.exception.ArticleNotFoundException;
 import com.example.privateblog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class ArticleController {
 
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable Long id, Model model) throws Exception {
+    public String findById(@PathVariable Long id, Model model) throws ArticleNotFoundException {
         ArticleDTO articleDTO = articleService.findById(id);
         model.addAttribute("post",articleDTO);
         return "post" ;
@@ -43,7 +44,7 @@ public class ArticleController {
 
 
     @PostMapping("/{id}/update")
-    public String updateById(@PathVariable Long id, @ModelAttribute ArticleDTO articleDTO, Model model) throws Exception {
+    public String updateById(@PathVariable Long id, @ModelAttribute ArticleDTO articleDTO, Model model) throws ArticleNotFoundException {
         ArticleDTO updateArticle = articleService.updateById(id,articleDTO);
         model.addAttribute(ARTICLES, updateArticle);
         return REDIRECT_ARTICLE_ID;
@@ -51,7 +52,7 @@ public class ArticleController {
 
 
     @GetMapping("/{id}/delete")
-    public String deleteById(@PathVariable Long id) throws Exception {
+    public String deleteById(@PathVariable Long id) throws ArticleNotFoundException {
         articleService.deleteById(id);
         return REDIRECT_ARTICLE_ID;
     }

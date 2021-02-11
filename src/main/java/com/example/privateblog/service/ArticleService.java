@@ -1,6 +1,7 @@
 package com.example.privateblog.service;
 
 import com.example.privateblog.dto.ArticleDTO;
+import com.example.privateblog.exception.ArticleNotFoundException;
 
 import java.util.List;
 
@@ -10,10 +11,10 @@ public interface ArticleService {
 
     ArticleDTO save(ArticleDTO articleDTO);
 
-    ArticleDTO findById(Long id) throws Exception;
+    ArticleDTO findById(Long id) throws ArticleNotFoundException;
 
-    ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws Exception;
+    ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws ArticleNotFoundException;
 
-    void deleteById(Long id) throws Exception;
+    void deleteById(Long id) throws ArticleNotFoundException;
 
 }

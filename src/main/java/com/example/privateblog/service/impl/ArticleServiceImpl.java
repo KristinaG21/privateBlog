@@ -30,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO findById(Long id) throws Exception {
+    public ArticleDTO findById(Long id) throws ArticleNotFoundException {
         Article byId = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
         return articleMapper.toDto(byId);
     }
@@ -44,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws Exception {
+    public ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws ArticleNotFoundException {
         Article foundById = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
         foundById.setHeadline(articleDTO.getHeadline());
         foundById.setAuthor(articleDTO.getAuthor());
@@ -54,7 +54,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteById(Long id) throws Exception {
+    public void deleteById(Long id) throws ArticleNotFoundException {
             articleRepository.deleteById(id);
 
 
