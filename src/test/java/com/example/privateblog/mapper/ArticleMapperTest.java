@@ -2,15 +2,13 @@ package com.example.privateblog.mapper;
 
 import com.example.privateblog.dto.ArticleDTO;
 import com.example.privateblog.entity.Article;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(JUnit4.class)
+@SpringBootTest
 class ArticleMapperTest {
 
     @Autowired
@@ -20,10 +18,10 @@ class ArticleMapperTest {
     void toEntity() {
         ArticleDTO articleDTO = new ArticleDTO();
         Article article = articleMapper.toEntity(articleDTO);
-        Assert.assertEquals(article.getId(),articleDTO.getId());
-        Assert.assertEquals(article.getHeadline(),articleDTO.getHeadline());
-        Assert.assertEquals(article.getDescription(),articleDTO.getDescription());
-        Assert.assertEquals(article.getAuthor(),articleDTO.getAuthor());
+        assertEquals(article.getId(),articleDTO.getId());
+        assertEquals(article.getHeadline(),articleDTO.getHeadline());
+        assertEquals(article.getDescription(),articleDTO.getDescription());
+        assertEquals(article.getAuthor(),articleDTO.getAuthor());
 
 
 
@@ -33,10 +31,10 @@ class ArticleMapperTest {
     void toDto() {
         Article article = new Article();
         ArticleDTO articleDTO = articleMapper.toDto(article);
-        Assert.assertEquals(articleDTO.getId(),article.getId());
-        Assert.assertEquals(articleDTO.getHeadline(),article.getHeadline());
-        Assert.assertEquals(articleDTO.getDescription(),article.getDescription());
-        Assert.assertEquals(articleDTO.getAuthor(),article.getAuthor());
+        assertEquals(articleDTO.getId(),article.getId());
+        assertEquals(articleDTO.getHeadline(),article.getHeadline());
+        assertEquals(articleDTO.getDescription(),article.getDescription());
+        assertEquals(articleDTO.getAuthor(),article.getAuthor());
 
     }
 }

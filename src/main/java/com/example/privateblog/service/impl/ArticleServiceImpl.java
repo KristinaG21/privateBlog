@@ -1,5 +1,4 @@
-package com.example.privateblog.service.serviceimpl;
-
+package com.example.privateblog.service.impl;
 
 import com.example.privateblog.dto.ArticleDTO;
 import com.example.privateblog.entity.Article;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO findById(Long id) {
+    public ArticleDTO findById(Long id) throws Exception {
         Article byId = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
         return articleMapper.toDto(byId);
     }
@@ -46,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO updateById(Long id, ArticleDTO articleDTO) {
+    public ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws Exception {
         Article foundById = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article Not Found"));
         foundById.setHeadline(articleDTO.getHeadline());
         foundById.setAuthor(articleDTO.getAuthor());
@@ -56,13 +54,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        Optional<Article> articleById = articleRepository.findById(id);
-        if (articleById.isPresent()) {
+    public void deleteById(Long id) throws Exception {
             articleRepository.deleteById(id);
-        } else {
-            throw new ArticleNotFoundException("Article not Found");
-        }
+
 
 
     }

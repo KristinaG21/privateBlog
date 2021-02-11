@@ -1,12 +1,7 @@
-package com.example.privateblog.restcontroller;
+package com.example.privateblog.controller;
 
-import com.example.privateblog.controller.ArticleRestController;
 import com.example.privateblog.dto.ArticleDTO;
-import com.example.privateblog.entity.Article;
-import com.example.privateblog.mapper.ArticleMapper;
-import com.example.privateblog.repository.ArticleRepository;
 import com.example.privateblog.service.ArticleService;
-import com.example.privateblog.service.serviceimpl.ArticleServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,15 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,7 +48,7 @@ public class ArticleControllerTest {
    }
 
    @Test
-   public void findById() {
+   public void findById() throws Exception {
       when(articleService.findById(2l)).thenReturn(articleDTO);
       when(model.addAttribute("post", articleService.findById(2l))).thenReturn(model);
       String view = articleController.findById(2l, model);
@@ -76,7 +65,7 @@ public class ArticleControllerTest {
    }
 
    @Test
-  public void updateById() {
+  public void updateById() throws Exception {
       articleDTO.setId(2l);
       articleDTO.setHeadline("test_headline");
       articleDTO.setDescription("test");
@@ -87,7 +76,7 @@ public class ArticleControllerTest {
    }
 
    @Test
-   public void deleteById() {
+   public void deleteById() throws Exception {
       doNothing().when(articleService).deleteById(2l);
       String view = articleController.deleteById(2l);
       assertEquals("redirect:/articles", view);

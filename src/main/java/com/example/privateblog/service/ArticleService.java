@@ -10,10 +10,10 @@ public interface ArticleService {
 
     ArticleDTO save(ArticleDTO articleDTO);
 
-    ArticleDTO findById(Long id);
+    ArticleDTO findById(Long id) throws Exception;
 
-    ArticleDTO updateById(Long id, ArticleDTO articleDTO);
+    ArticleDTO updateById(Long id, ArticleDTO articleDTO) throws Exception;
 
-    void deleteById(Long id);
+    void deleteById(Long id) throws Exception;
 
 }
